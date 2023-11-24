@@ -15,11 +15,23 @@ spec:
         app: {{.Values.COMMON_NAME}}
     spec:
       containers:
-        - name: {{.Values.COMMON_NAME}}
-          image: {{.Values.image.repository}}
-          imagePullPolicy: {{.Values.image.pullPolicy}}
-          ports:
-            - containerPort: 80
+      - envFrom:
+        - configMapRef:
+            name: lti-player-service-config
+        name: {{.Values.COMMON_NAME}}
+        image: {{.Values.image.repository}}
+        imagePullPolicy: {{.Values.image.pullPolicy}}
+        ports:
+          - containerPort: 80
+        volumeMounts:
+        - mountPath: /app/.env
+          name: lti-player-service-config
+          subPath: .env
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: lti-player-service-config
+        name: lti-player-service-config
 
 ---
 apiVersion: v1
