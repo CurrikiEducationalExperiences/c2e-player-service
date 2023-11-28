@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const path = require('path')
+const CeeLicensesController = require('./controllers/CeeLicensesController');
 
 // Requiring Ltijs
 const lti = require('ltijs').Provider
@@ -81,25 +82,6 @@ router.post('/deeplink', async (req, res) => {
   }
 })
 
-// Return available deep linking resources
-router.get('/resources', async (req, res) => {
-  const resources = [
-    {
-      name: 'Resource1',
-      value: 'value1'
-    },
-    {
-      name: 'Resource2',
-      value: 'value2'
-    },
-    {
-      name: 'Resource3',
-      value: 'value3'
-    }
-  ]
-  return res.send(resources)
-})
-
 // Get user and context information
 router.get('/info', async (req, res) => {
   const token = res.locals.token
@@ -119,6 +101,8 @@ router.get('/info', async (req, res) => {
 
   return res.send(info)
 })
+
+router.get('/resources', CeeLicensesController.licenses)
 
 // Wildcard route to deal with redirecting to React routes
 router.get('*', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')))
