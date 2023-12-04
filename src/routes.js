@@ -68,6 +68,7 @@ router.post('/deeplink', async (req, res) => {
     const items = {
       type: 'ltiResourceLink',
       title: 'Ltijs Demo',
+      url: `https://c2e-player-service.curriki.org/play?c2eId=${req.query.c2eId}`,
       custom: {
         name: resource.name,
         value: resource.value
@@ -83,7 +84,7 @@ router.post('/deeplink', async (req, res) => {
   }
 })
 
-router.post('/play/:id', async (req, res) => {
+router.post('/play', async (req, res) => {
   try {
     const c2eId = req.query.c2eId;
     const redirectUrl = `https://lti-epub-player-dev.curriki.org/play/${c2eId}`
