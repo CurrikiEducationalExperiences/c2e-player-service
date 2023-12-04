@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const path = require('path')
 const CeeLicensesController = require('./controllers/CeeLicensesController');
+const CeeStreamController = require('./controllers/CeeStreamController');
 
 // Requiring Ltijs
 const lti = require('ltijs').Provider
@@ -161,6 +162,7 @@ router.get('/info', async (req, res) => {
 })
 
 router.get('/resources', CeeLicensesController.licenses)
+router.get('/stream', CeeStreamController.stream)
 
 // Wildcard route to deal with redirecting to React routes
 router.get('*', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')))
