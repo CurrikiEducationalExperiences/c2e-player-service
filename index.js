@@ -52,7 +52,7 @@ lti.onConnect(async (token, req, res) => {
 // When receiving deep linking request redirects to deep screen
 lti.onDeepLinking(async (token, req, res) => {
   if(req.query.c2eId) {
-    return lti.redirect(res, '/play/:id', { newResource: true })
+    return lti.redirect(res, `/play`, { newResource: true })
   }
   else {
     return lti.redirect(res, '/deeplink', { newResource: true })    
