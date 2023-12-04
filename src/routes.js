@@ -67,14 +67,14 @@ router.post('/deeplink', async (req, res) => {
     const items = {
       type: 'ltiResourceLink',
       title: 'Ltijs Demo',
-      //url: 'https://ltijs-demo-server.curriki.org',
+      url: 'https://c2e-player-service.curriki.org/c2elaunch/6d2d4ec0-8932-11ee-8360-a162aa2ed079',
       custom: {
         name: resource.name,
         value: resource.value
       }
     }
 
-    const form = await lti.DeepLinking.createDeepLinkingForm(res.locals.token, items, { message: `Successfully Registered ${resource}` })
+    const form = await lti.DeepLinking.createDeepLinkingForm(res.locals.token, items, { message: `Successfully Registered` })
     if (form) return res.send(form)
     return res.sendStatus(500)
   } catch (err) {
@@ -83,6 +83,63 @@ router.post('/deeplink', async (req, res) => {
   }
 })
 
+router.post('/c2elaunch/:id', async (req, res) => {
+  try {
+    // const resource = req.body
+
+    // const items = {
+    //   type: 'ltiResourceLink',
+    //   title: 'Ltijs Demo',
+    //   //url: 'https://ltijs-demo-server.curriki.org',
+    //   custom: {
+    //     name: resource.name,
+    //     value: resource.value
+    //   }
+    // }
+
+    const form = `<HTML>
+
+    <HEAD>
+    
+    <TITLE>Your Title Here</TITLE>
+    
+    </HEAD>
+    
+    <BODY BGCOLOR="FFFFFF">
+    
+    <CENTER><IMG SRC="clouds.jpg" ALIGN="BOTTOM"> </CENTER>
+    
+    <HR>
+    
+    <a href="http://somegreatsite.com">Link Name</a>
+    
+    is a link to another nifty site
+    
+    <H1>This is a Header</H1>
+    
+    <H2>This is a Medium Header</H2>
+    
+    Send me mail at <a href="mailto:support@yourcompany.com">
+    
+    support@yourcompany.com</a>.
+    
+    <P> This is a new paragraph!
+    
+    <P> <B>This is a new paragraph!</B>
+    
+    <BR> <B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>
+    
+    <HR>
+    
+    </BODY>
+    
+    </HTML>`
+    return res.send(form)
+  } catch (err) {
+    console.log(err.message)
+    return res.status(500).send(err.message)
+  }
+})
 // Get user and context information
 router.get('/info', async (req, res) => {
   const token = res.locals.token
