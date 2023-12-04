@@ -67,7 +67,7 @@ router.post('/deeplink', async (req, res) => {
     const items = {
       type: 'ltiResourceLink',
       title: 'Ltijs Demo',
-      //url: resource.url,
+      url: 'https://lti-epub-player-dev.curriki.org/play/1',
       custom: {
         name: resource.name,
         value: resource.value
