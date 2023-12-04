@@ -68,7 +68,6 @@ router.post('/deeplink', async (req, res) => {
     const items = {
       type: 'ltiResourceLink',
       title: 'Ltijs Demo',
-      url: 'https://c2e-player-service.curriki.org/c2elaunch/6d2d4ec0-8932-11ee-8360-a162aa2ed079',
       custom: {
         name: resource.name,
         value: resource.value
