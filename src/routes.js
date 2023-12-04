@@ -74,7 +74,7 @@ router.post('/deeplink', async (req, res) => {
       }
     }
 
-    const form = await lti.DeepLinking.createDeepLinkingForm(res.locals.token, items, { message: 'Successfully Registered' })
+    const form = await lti.DeepLinking.createDeepLinkingForm(res.locals.token, items, { message: `Successfully Registered ${resource}` })
     if (form) return res.send(form)
     return res.sendStatus(500)
   } catch (err) {
