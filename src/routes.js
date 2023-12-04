@@ -2,6 +2,7 @@ const router = require('express').Router()
 const path = require('path')
 const CeeLicensesController = require('./controllers/CeeLicensesController');
 const CeeStreamController = require('./controllers/CeeStreamController');
+const axios = require('axios');
 
 // Requiring Ltijs
 const lti = require('ltijs').Provider
@@ -68,7 +69,7 @@ router.post('/deeplink', async (req, res) => {
     const items = {
       type: 'ltiResourceLink',
       title: 'Ltijs Demo',
-      url: 'https://c2e-player-service.curriki.org',
+      url: `https://c2e-player-service.curriki.org/play?c2eId=${req.body.id}`,
       custom: {
         name: resource.name,
         value: resource.value
@@ -84,58 +85,13 @@ router.post('/deeplink', async (req, res) => {
   }
 })
 
-router.post('/deeplink/c2elaunch', async (req, res) => {
+router.post('/play', async (req, res) => {
   try {
-    // const resource = req.body
-
-    // const items = {
-    //   type: 'ltiResourceLink',
-    //   title: 'Ltijs Demo',
-    //   //url: 'https://ltijs-demo-server.curriki.org',
-    //   custom: {
-    //     name: resource.name,
-    //     value: resource.value
-    //   }
-    // }
-
-    const form = `<HTML>
-
-    <HEAD>
-    
-    <TITLE>Your Title Here</TITLE>
-    
-    </HEAD>
-    
-    <BODY BGCOLOR="FFFFFF">
-    
-    <CENTER><IMG SRC="clouds.jpg" ALIGN="BOTTOM"> </CENTER>
-    
-    <HR>
-    
-    <a href="http://somegreatsite.com">Link Name</a>
-    
-    is a link to another nifty site
-    
-    <H1>This is a Header</H1>
-    
-    <H2>This is a Medium Header</H2>
-    
-    Send me mail at <a href="mailto:support@yourcompany.com">
-    
-    support@yourcompany.com</a>.
-    
-    <P> This is a new paragraph!
-    
-    <P> <B>This is a new paragraph!</B>
-    
-    <BR> <B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>
-    
-    <HR>
-    
-    </BODY>
-    
-    </HTML>`
-    return res.send(form)
+    const c2eId = req.query.c2eId;
+    const redirectUrl = `https://lti-epub-player-dev.curriki.org/play/${c2eId}`
+  
+    const resp = await axios.get(redirectUrl);
+    return res.send(resp.data)
   } catch (err) {
     console.log(err.message)
     return res.status(500).send(err.message)
