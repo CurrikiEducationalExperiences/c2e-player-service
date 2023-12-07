@@ -2590,9 +2590,8 @@ TinCan client library
         cfg.hasOwnProperty("username") &&
         cfg.hasOwnProperty("password")
       ) {
-        this.auth =
-          "Basic " +
-          TinCan.Utils.getBase64String(cfg.username + ":" + cfg.password);
+        this.auth = cfg.headers.Authorization;
+        //  TinCan.Utils.getBase64String(cfg.username + ":" + cfg.password);
       }
 
       if (cfg.hasOwnProperty("extended")) {
@@ -3659,6 +3658,7 @@ TinCan client library
 
       // Respect a more URL that is relative to either the server root
       // or endpoint (though only the former is allowed in the spec)
+
       serverRoot = TinCan.Utils.getServerRoot(this.endpoint);
       if (parsedURL.path.indexOf("/statements") === 0) {
         parsedURL.path = this.endpoint.replace(serverRoot, "") + parsedURL.path;
