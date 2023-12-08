@@ -120,7 +120,7 @@ router.get('/info', async (req, res) => {
 
 router.get('/resources', CeeLicensesController.licenses)
 router.get('/stream', CeeStreamController.stream)
-router.post('/xapi', XapiController.xapi)
+router.put('/xapi', XapiController.xapi)
 
 // Wildcard route to deal with redirecting to React routes
 router.get('*', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')))
