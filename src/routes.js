@@ -103,6 +103,8 @@ router.get('/info', async (req, res) => {
   const token = res.locals.token
   const context = res.locals.context
 
+  return res.send({token, context})
+
   const info = { }
   if (token.userInfo) {
     if (token.userInfo.name) info.name = token.userInfo.name
@@ -120,7 +122,7 @@ router.get('/info', async (req, res) => {
 
 router.get('/resources', CeeLicensesController.licenses)
 router.get('/stream', CeeStreamController.stream)
-router.post('/xapi', XapiController.xapi)
+router.put('/xapi/statements', XapiController.xapi)
 
 // Wildcard route to deal with redirecting to React routes
 router.get('*', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')))
