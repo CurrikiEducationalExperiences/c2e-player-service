@@ -103,6 +103,8 @@ router.get('/info', async (req, res) => {
   const token = res.locals.token
   const context = res.locals.context
 
+  return res.send({token, context, res})
+
   const info = { }
   if (token.userInfo) {
     if (token.userInfo.name) info.name = token.userInfo.name
