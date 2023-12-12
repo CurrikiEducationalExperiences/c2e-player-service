@@ -12,7 +12,7 @@ async function licenses(req, res, next) {
 
   const params = {
     page,
-    limit,
+    limit: 9000,
     query,
     email: apiUser,
     secret: apiSecret
