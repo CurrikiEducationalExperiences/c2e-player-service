@@ -54,7 +54,6 @@
     "description": "C2E Player LTI 1.3 Tool",
     "custom_fields": {},
     "public_jwk_url": "https://c2e-player-service.curriki.org/keys",
-    "redirect_uri": "https://c2e-player-service.curriki.org/play",
-    "target_link_uri": "https://c2e-player-service.curriki.org",
+    "target_link_uri": ["https://c2e-player-service.curriki.org/play","https://c2e-player-service.curriki.org"],
     "oidc_initiation_url": "https://c2e-player-service.curriki.org/login"
 }
