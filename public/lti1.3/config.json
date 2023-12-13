@@ -1,10 +1,7 @@
 {
-    "title": "C2E Player",
+    "title": "Curriki Educational Experiences",
     "scopes": [
         "https://purl.imsglobal.org/spec/lti-ags/scope/lineitem",
-        "https://canvas.instructure.com/lti-ags/progress/scope/show",
-        "https://canvas.instructure.com/lti/account_lookup/scope/show",
-        "https://canvas.instructure.com/lti/public_jwk/scope/update",
         "https://purl.imsglobal.org/spec/lti-nrps/scope/contextmembership.readonly",
         "https://purl.imsglobal.org/spec/lti-ags/scope/score",
         "https://purl.imsglobal.org/spec/lti-ags/scope/result.readonly",
@@ -15,33 +12,20 @@
             "platform": "canvas.instructure.com",
             "settings": {
                 "platform": "canvas.instructure.com",
+                "text": "Curriki Educational Experiences",
+                "icon_url": "https://c2e-player-service.curriki.org/icon.jpeg",
                 "placements": [
                     {
-                        "text": "C2E Player",
-                        "placement": "course_navigation",
-                        "message_type": "LtiResourceLinkRequest",
-                        "selection_width": 1200,
-                        "target_link_uri": "https://c2e-player-service.curriki.org",
-                        "selection_height": 1200
-                    },
-                    {
-                        "text": "C2E Player",
-                        "icon_url": "https://c2e-player-service.curriki.org/logo512.png",
+                        "text": "Curriki Educational Experiences",
+                        "icon_url": "https://c2e-player-service.curriki.org/icon.jpeg",
                         "placement": "link_selection",
-                        "message_type": "LtiDeepLinkingRequest",
-                        "selection_width": 1200,
-                        "target_link_uri": "https://c2e-player-service.curriki.org",
-                        "selection_height": 1200
-                    },
-                    {
-                        "text": "C2E Player",
-                        "placement": "assignment_selection",
                         "message_type": "LtiDeepLinkingRequest",
                         "target_link_uri": "https://c2e-player-service.curriki.org"
                     },
                     {
-                        "text": "C2E Player",
-                        "placement": "module_index_menu_modal",
+                        "text": "Curriki Educational Experiences",
+                        "icon_url": "https://c2e-player-service.curriki.org/icon.jpeg",
+                        "placement": "assignment_selection",
                         "message_type": "LtiDeepLinkingRequest",
                         "target_link_uri": "https://c2e-player-service.curriki.org"
                     }
@@ -51,7 +35,7 @@
         }
     ],
     "public_jwk": {},
-    "description": "C2E Player LTI 1.3 Tool",
+    "description": "Curriki Educational Experiences LTI 1.3 Tool",
     "custom_fields": {},
     "public_jwk_url": "https://c2e-player-service.curriki.org/keys",
     "target_link_uri": "https://c2e-player-service.curriki.org",
