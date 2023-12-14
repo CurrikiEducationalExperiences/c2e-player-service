@@ -13,18 +13,18 @@
             "settings": {
                 "platform": "canvas.instructure.com",
                 "text": "Curriki Educational Experiences",
-                "icon_url": "https://c2e-player-service.curriki.org/icon.jpeg",
+                "icon_url": "https://c2e-player-service.curriki.org/icon.svg",
                 "placements": [
                     {
                         "text": "Curriki Educational Experiences",
-                        "icon_url": "https://c2e-player-service.curriki.org/icon.jpeg",
+                        "icon_url": "https://c2e-player-service.curriki.org/icon.svg",
                         "placement": "link_selection",
                         "message_type": "LtiDeepLinkingRequest",
                         "target_link_uri": "https://c2e-player-service.curriki.org"
                     },
                     {
                         "text": "Curriki Educational Experiences",
-                        "icon_url": "https://c2e-player-service.curriki.org/icon.jpeg",
+                        "icon_url": "https://c2e-player-service.curriki.org/icon.svg",
                         "placement": "assignment_selection",
                         "message_type": "LtiDeepLinkingRequest",
                         "target_link_uri": "https://c2e-player-service.curriki.org"
