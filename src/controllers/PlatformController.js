@@ -9,8 +9,12 @@ async function register(req, res, next) {
     || !req.body.accesstokenEndpoint 
     || !req.body.authConfigMethod 
     || !req.body.authConfigKey
+    || !req.body.secret
   )
       return res.status(400).send('Invalid parameters.');
+
+  if (process.env.ADMIN_SECRET != req.body.secret)
+    return res.status(400).send('Invalid secret.');
 
   const {
     url = '',

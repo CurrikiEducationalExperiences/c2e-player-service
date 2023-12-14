@@ -9,6 +9,8 @@ const axios = require('axios');
 // Requiring Ltijs
 const lti = require('ltijs').Provider
 
+lti.whitelist({ route: '/platform/register', method: 'post' });
+
 // Grading route
 router.post('/grade', async (req, res) => {
   try {
