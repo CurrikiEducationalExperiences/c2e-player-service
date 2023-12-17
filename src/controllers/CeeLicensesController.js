@@ -1,5 +1,6 @@
 const axios = require('axios');
 const {PlatformSetting} = require('../models/platformSetting');
+const { sequelize } = require('../database/database');
 
 async function licenses(req, res, next) {
   const { page = 1, limit = 10, query = '' } = req.query;
@@ -8,8 +9,18 @@ async function licenses(req, res, next) {
     return res.status(400).send('Invalid parameter type');
   }
 
-  return res.send(res.locals.token);
-  const platformSettings = await PlatformSetting.findOne({ where: {lti_client_id: res.locals.token.clientId}});
+  try {
+    await sequelize.authenticate();
+  } catch (error) {
+    res.send('Unable to connect to the database:', error);
+  }
+
+  try {
+    var platformSettings = await PlatformSetting.findOne({ where: {lti_client_id: res.locals.token.clientId}});
+  } catch (error) {
+    res.send(error);
+  }
+  
   if (!platformSettings) {
     return res.status(400).send('No matching platform settings found.');
   }
