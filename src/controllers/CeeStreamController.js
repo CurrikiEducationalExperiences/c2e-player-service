@@ -1,20 +1,24 @@
 const axios = require('axios');
-const fileUrl = `${process.env.C2E_SERVICES_API_BASE_URL}/c2e/licensed`;
-const apiUser = process.env.C2E_SERVICES_API_USER;
-const apiSecret = process.env.C2E_SERVICES_API_SECRET;
+const {PlatformSetting} = require('../models/platformSetting');
 
 async function stream(req, res, next) {
+  var platformSettings = await PlatformSetting.findOne({ where: {lti_client_id: res.locals.token.clientId}});
+  if (!platformSettings) {
+    return res.status(400).send('No matching platform settings found.');
+  }
+
   const { ceeId } = req.query;
   const params = {
     ceeId: ceeId,
-    email: apiUser,
-    secret: apiSecret,
+    email: platformSettings.cee_licensee_id,
+    secret: platformSettings.cee_secret_key,
     decrypt: true
   };
   const options = {
     method: 'POST',
     responseType: 'stream'
   };
+  const fileUrl = `${platformSettings.cee_provider_url}/c2e/licensed`;
   try {
     const response = await axios.post(fileUrl, params, options);
     const fileStream = response.data;
