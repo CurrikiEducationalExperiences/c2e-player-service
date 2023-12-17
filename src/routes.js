@@ -3,10 +3,13 @@ const path = require('path')
 const CeeLicensesController = require('./controllers/CeeLicensesController');
 const CeeStreamController = require('./controllers/CeeStreamController');
 const XapiController = require('./controllers/XapiController');
+const PlatformController = require('./controllers/PlatformController');
 const axios = require('axios');
 
 // Requiring Ltijs
 const lti = require('ltijs').Provider
+
+lti.whitelist({ route: '/platform/register', method: 'post' });
 
 // Grading route
 router.post('/grade', async (req, res) => {
@@ -69,7 +72,8 @@ router.post('/deeplink', async (req, res) => {
 
     const items = {
       type: 'ltiResourceLink',
-      url: `https://c2e-player-service.curriki.org/play?c2eId=${req.body.id}`,
+      title: resource.title,
+      url: `https://c2e-player-service.curriki.org/play?c2eId=${resource.id}`,
       custom: {
         name: resource.name,
         value: resource.value
@@ -122,6 +126,7 @@ router.get('/info', async (req, res) => {
 router.get('/resources', CeeLicensesController.licenses)
 router.get('/stream', CeeStreamController.stream)
 router.put('/xapi/statements', XapiController.xapi)
+router.post('/platform/register', PlatformController.register)
 
 // Wildcard route to deal with redirecting to React routes
 router.get('*', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')))
