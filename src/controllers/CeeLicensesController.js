@@ -1,7 +1,5 @@
 const axios = require('axios');
-const licensesUrl = `${process.env.C2E_SERVICES_API_BASE_URL}/licenses`;
-const apiUser = process.env.C2E_SERVICES_API_USER;
-const apiSecret = process.env.C2E_SERVICES_API_SECRET;
+const {PlatformSetting} = require('../models/platformSetting');
 
 async function licenses(req, res, next) {
   const { page = 1, limit = 10, query = '' } = req.query;
@@ -10,12 +8,18 @@ async function licenses(req, res, next) {
     return res.status(400).send('Invalid parameter type');
   }
 
+  const platformSettings = await PlatformSetting.findOne({lti_client_id: res.locals.token.clientId});
+  if (!platformSettings) {
+    return res.status(400).send('No matching platform settings found.');
+  }
+
+  const licensesUrl = `${platformSettings.cee_provider_url}/licenses`;
   const params = {
     page,
     limit: 9000,
     query,
-    email: apiUser,
-    secret: apiSecret
+    email: platformSettings.cee_licensee_id,
+    secret: platformSettings.cee_secret_key
   };
 
   await axios.get(licensesUrl, {params})
