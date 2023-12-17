@@ -8,6 +8,7 @@ async function licenses(req, res, next) {
     return res.status(400).send('Invalid parameter type');
   }
 
+  return res.send(res.locals.token);
   const platformSettings = await PlatformSetting.findOne({ where: {lti_client_id: res.locals.token.clientId}});
   if (!platformSettings) {
     return res.status(400).send('No matching platform settings found.');
