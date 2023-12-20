@@ -1,25 +1,51 @@
 const axios = require('axios');
-const xapiServiceUrl = `${process.env.C2E_SERVICES_API_BASE_URL}/xapi`;
-const apiUser = process.env.C2E_SERVICES_API_USER;
-const apiSecret = process.env.C2E_SERVICES_API_SECRET;
+const {PlatformSetting} = require('../models/platformSetting');
 
 async function xapi(req, res) {
-    if (!req.body.id || !req.body.verb)
-        return res.status(400).send('No xAPI statement provided.');
+    var platformSettings = await PlatformSetting.findOne({ where: {lti_client_id: res.locals.token.clientId}});
+    if (!platformSettings) {
+        return res.status(400).send({
+            status: 400,
+            error: "No matching platform settings found",
+            details: {
+              description: "Your LTI authentication information doesn't match any existing platform settings in the C2E player",
+              message: "No matching platform settings found"
+            }
+          });
+    }
+
+    if (!req.body.id || !req.body.verb){
+        return res.status(400).send({
+            status: 400,
+            error: "No xAPI statement provided",
+            details: {
+              description: "The request params provided do not match a valid xAPI statement format",
+              message: "No xAPI statement provided"
+            }
+        });
+    }
 
     const params = {
         statement: JSON.stringify(req.body),
-        email: apiUser,
-        secret: apiSecret
+        email: platformSettings.cee_licensee_id,
+        secret: platformSettings.cee_secret_key,
     };
 
+    const xapiServiceUrl = `${platformSettings.cee_provider_url}/xapi`;
     await axios.post(xapiServiceUrl, params)
     .then(async (response) => {
         return res.send(response.data);
     })
     .catch((error) => {
         console.log(error);
-        res.send({error: 'Error: Failed to send  xAPI statement to service provider'});
+        return res.status(400).send({
+            status: 400,
+            error: "Failed to send  xAPI statement to service provider",
+            details: {
+              description: "Failed to send  xAPI statement to service provider. Check your integration settings",
+              message: "Failed to send  xAPI statement to service provider"
+            }
+        });
     });
 }
 
