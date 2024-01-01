@@ -89,18 +89,18 @@ router.post('/deeplink', async (req, res) => {
   }
 })
 
-// router.post('/play', async (req, res) => {
-//   try {
-//     const c2eId = req.query.c2eId;
-//     const redirectUrl = `https://lti-epub-player-dev.curriki.org/play/${c2eId}`
+router.post('/play', async (req, res) => {
+  try {
+    const c2eId = req.query.c2eId;
+    const redirectUrl = `https://lti-epub-player-dev.curriki.org/play/${c2eId}`
   
-//     const resp = await axios.get(redirectUrl);
-//     return res.send(resp.data)
-//   } catch (err) {
-//     console.log(err.message)
-//     return res.status(500).send(err.message)
-//   }
-// })
+    const resp = await axios.get(redirectUrl);
+    return res.send(resp.data)
+  } catch (err) {
+    console.log(err.message)
+    return res.status(500).send(err.message)
+  }
+})
 // Get user and context information
 router.get('/info', async (req, res) => {
   const token = res.locals.token
